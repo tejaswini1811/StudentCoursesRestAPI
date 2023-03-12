@@ -1,19 +1,26 @@
 pipeline{
     agent{label 'workshop'}
-    trigger{
-        pollscm( ' * * * * * ' )
+    triggers{
+        pollSCM( ' * 23 * * 1-5 ' )
     }
     stages{
         stage('vcs'){
-            git url: 'https://github.com/tejaswini1811/StudentCoursesRestAPI.git',
-                branch: 'develop'
+            steps{
+              git url: 'https://github.com/tejaswini1811/StudentCoursesRestAPI.git',
+                branch: 'sprint_1_release'
+            }
         }
         stage('docker image build'){
-            sh 'docker image build -t teju1811/studentcourses:1.1 .'
+            steps{
+                sh 'docker image build -t teju1811/studentcourses:1.1 .'
+            }
         }
         stage('scan and push'){
-            sh 'echo docker scan teju1811/studentcourses:1.1'
-            sh 'docker image push teju1811/studentcourses:1.1'
+            steps{ 
+                sh 'echo docker scan teju1811/studentcourses:1.1'
+                sh 'docker image push teju1811/studentcourses:1.1'
+            }
         }
+        
     }
 }
