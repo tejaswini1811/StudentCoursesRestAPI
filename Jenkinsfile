@@ -7,7 +7,7 @@ pipeline{
         stage('vcs'){
             steps{
               git url: 'https://github.com/tejaswini1811/StudentCoursesRestAPI.git',
-                branch: 'sprint_1_release'
+                branch: 'develop'
             }
         }
         stage('docker image build'){
